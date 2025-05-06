@@ -63,9 +63,6 @@ async function main() {
 
   console.log("🚀 Sending publish transaction…");
 
-  console.log(keypair, 'the keypair')
-  console.log(tx, 'the tx')
-
   const response = await client.signAndExecuteTransaction({
     signer: keypair,
     transaction: tx,

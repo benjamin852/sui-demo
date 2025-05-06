@@ -31,6 +31,8 @@ fun init(ctx: &mut TxContext) {
     });
 }
 
+//1. pass in packageId of relayer discovery
+//2. pass in singleton hex was created in init
 public fun register_transaction(discovery: &mut RelayerDiscovery, singleton: &Singleton) {
     let arguments = vector[
         vector[2u8],
@@ -90,6 +92,8 @@ public fun send_call(
     gateway.send_message(message_ticket);
 }
 
+
+//send msg to channel from avalanche (channel = dest addr)
 public fun execute(call: ApprovedMessage, singleton: &mut Singleton) {
     let (_, _, _, payload) = singleton.channel.consume_approved_message(call);
     event::emit(Executed { data: payload });
