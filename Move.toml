@@ -18,7 +18,7 @@ GmpExample        = "0x0"
 # 2) All CGP-Sui packages point at their live testnet IDs
 AxelarGateway     = "0x6ddfcdd14a1019d13485a724db892fa0defe580f19c991eaabd690140abb21e4"
 GasService        = "0x3e7044fe789a4f466964e520e4793b467fcdca2d62bef43213d51d0756fc5a75" 
-#gas service ^ should be 0xddf711b99aec5c72594e5cf2da4014b2d30909850a759d2e8090add1088dbbc9
+#gas service ^ should be 0xddf711b99aec5c72594e5cf2da4014b2d30909850a759d2e8090add1088dbbc9 [currently working as foivos found correct object id for the above packageId]
 RelayerDiscovery  = "0x2f871726329f555bc3fa6eec129f259a8bce3cb3989b39dd75a627a1a0961bc2"
 Utils             = "0x9d817589ae367cc3f3bc9ca40394be79e5853bfca98014f27acfd4da9db78421"
 VersionControl    = "0x6e8ebd241a5b89499e0cd104540f8025af111dcd42644bb732dbc170e395ce0c"
