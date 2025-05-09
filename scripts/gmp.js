@@ -70,7 +70,6 @@ async function main() {
     .requiredOption('--singletonId <singleton>', 'Singleton object ID')
     .requiredOption('--fee <amount>', 'Fee in atomic units')
     .requiredOption('--payload <hex>', 'Payload bytes (hex)')
-    // .requiredOption('--params <params>', 'GMP call params (hex)')
     .requiredOption('--refundAddress <addr>', 'Refund address')
     .requiredOption('--packageId <packageId>', 'Package ID')
     .action(async (opts) => {
