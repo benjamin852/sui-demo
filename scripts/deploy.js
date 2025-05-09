@@ -1,4 +1,3 @@
-// deploy.js
 import "dotenv/config";
 import { decodeSuiPrivateKey } from "@mysten/sui/cryptography";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
@@ -8,7 +7,6 @@ import { SuiClient } from "@mysten/sui/client";
 import { execSync } from "child_process";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-// import { getObjectIdsByObjectTypes } from "./sui-call.ts";
 
 
 
@@ -54,10 +52,8 @@ async function main() {
   const client = new SuiClient({ url: "https://fullnode.testnet.sui.io:443" });
   const tx = new Transaction();
 
-  // Publish returns [UpgradeCap]
   const [upgradeCap] = tx.publish({ modules, dependencies });
 
-  // **Key fix:** pass the address string directly, not wrapped in tx.pure()
   const myAddress = keypair.getPublicKey().toSuiAddress();
   tx.transferObjects([upgradeCap], myAddress);
 
@@ -73,10 +69,8 @@ async function main() {
     },
   });
 
-  // 4. Results
   console.log("✅ Publish succeeded!");
 
-  // after your signAndExecuteTransaction(...) call:
   const publishedChange = response.objectChanges.find(
     (c) => c.type === "published"
   );

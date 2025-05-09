@@ -31,7 +31,7 @@ fun init(ctx: &mut TxContext) {
     });
 }
 
-//1. pass in packageId of relayer discovery
+//1. pass in objectId of relayer discovery
 //2. pass in singleton hex was created in init
 public fun register_transaction(discovery: &mut RelayerDiscovery, singleton: &Singleton) {
     let arguments = vector[

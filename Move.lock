@@ -2,7 +2,7 @@
 
 [move]
 version = 3
-manifest_digest = "7EFFFCB7841AB73CF81EA23D1C4FEC238B08F7A487C0F1ED5E9EBD948655181C"
+manifest_digest = "61AA3C94D47DDDA6A61E3B555BDFE415018B0E1ED7DB48F3F107005D229E97FD"
 deps_digest = "8227D341C0550A37580C10FA45FE148A465225149C69D179737E0FE454AD6AEC"
 dependencies = [
   { id = "AxelarGateway", name = "AxelarGateway" },
@@ -18,7 +18,7 @@ dependencies = [
 
 [[move.package]]
 id = "AxelarGateway"
-source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "5392d5ba861551e1107e374d3f4247527072ae84", subdir = "move/axelar_gateway" }
+source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "b35227a82f7ca6f941a7e729e1a3b3d48a64b982", subdir = "move/axelar_gateway" }
 
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
@@ -39,7 +39,7 @@ dependencies = [
 
 [[move.package]]
 id = "GasService"
-source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "5392d5ba861551e1107e374d3f4247527072ae84", subdir = "move/gas_service" }
+source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "b35227a82f7ca6f941a7e729e1a3b3d48a64b982", subdir = "move/gas_service" }
 
 dependencies = [
   { id = "AxelarGateway", name = "AxelarGateway" },
@@ -53,7 +53,7 @@ source = { git = "https://github.com/MystenLabs/sui.git", rev = "fbb68879cbd1", 
 
 [[move.package]]
 id = "RelayerDiscovery"
-source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "5392d5ba861551e1107e374d3f4247527072ae84", subdir = "move/relayer_discovery" }
+source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "b35227a82f7ca6f941a7e729e1a3b3d48a64b982", subdir = "move/relayer_discovery" }
 
 dependencies = [
   { id = "AxelarGateway", name = "AxelarGateway" },
@@ -80,7 +80,7 @@ dependencies = [
 
 [[move.package]]
 id = "Utils"
-source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "5392d5ba861551e1107e374d3f4247527072ae84", subdir = "move/utils" }
+source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "b35227a82f7ca6f941a7e729e1a3b3d48a64b982", subdir = "move/utils" }
 
 dependencies = [
   { id = "Sui", name = "Sui" },
@@ -88,7 +88,7 @@ dependencies = [
 
 [[move.package]]
 id = "VersionControl"
-source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "5392d5ba861551e1107e374d3f4247527072ae84", subdir = "move/version_control" }
+source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "b35227a82f7ca6f941a7e729e1a3b3d48a64b982", subdir = "move/version_control" }
 
 dependencies = [
   { id = "Sui", name = "Sui" },

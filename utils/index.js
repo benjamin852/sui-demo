@@ -4,26 +4,6 @@ import { SuiClient } from '@mysten/sui/client';
 import 'dotenv/config';
 
 /**
- * Parse Axelar Gateway info (hardcoded for now)
- */
-export function parseGatewayInfo() {
-  return {
-    gateway: '0x6fc18d39a9d7bf46c438bdb66ac9e90e902abffca15b846b32570538982fb3db',
-    packageId: '0x6ddfcdd14a1019d13485a724db892fa0defe580f19c991eaabd690140abb21e4',
-  };
-}
-
-/**
- * Parse Relayer Discovery info (hardcoded for now)
- */
-export function parseDiscoveryInfo() {
-  return {
-    discovery: '0xac080ff19b7d44c9362b83628253a4b55747779096034a72ca62ce89a188305e',
-    packageId: '0x2f871726329f555bc3fa6eec129f259a8bce3cb3989b39dd75a627a1a0961bc2',
-  };
-}
-
-/**
  * Convert a human-readable amount into its atomic unit representation.
  * @param {string} amount - The amount as a decimal string, e.g. "1.5"
  * @param {number} [decimals=9] - Number of decimal places (defaults to 9 for SUI)

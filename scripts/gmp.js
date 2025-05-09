@@ -3,17 +3,8 @@ import { Command } from 'commander'
 import { Transaction } from '@mysten/sui/transactions'
 import { bcs } from '@mysten/sui/bcs'
 import { arrayify } from 'ethers/lib/utils.js'
-import { decodeSuiPrivateKey } from '@mysten/sui/cryptography'
-import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519'
-import { Secp256k1Keypair } from '@mysten/sui/keypairs/secp256k1'
-import { SuiClient } from '@mysten/sui/client'
-import { getWallet, getUnitAmount } from './utils/index.js'
-import {
-  broadcast,
-  broadcastExecuteApprovedMessage,
-  getObjectIdsByObjectTypes,
-} from './utils/sui-utils.js'
-// import suiConfig from './sui-config.json' assert { type: 'json' };
+import { getWallet, getUnitAmount } from '../utils/index.js'
+import { broadcast } from '../utils/sui-utils.js'
 
 async function sendCommand(keypair, client, args, options, packageId) {
   const [
@@ -25,12 +16,8 @@ async function sendCommand(keypair, client, args, options, packageId) {
   ] = args
 
   const params = options.params
-  // const gasServiceId = "suiConfig.contracts.GasService.objects.GasService";
-  // const gasServiceId =
-  //   '0xac1a4ad12d781c2f31edc2aa398154d53dbda0d50cb39a4319093e3b357bc27d'
   const gasServiceId =
-    '0x4232c20cc845f024ff4e99f7395d6b0e5a3b884cc655b327935239dc553f840e'
-  // const gatewayId = suiConfig.contracts.AxelarGateway.objects.Gateway;
+    '0xac1a4ad12d781c2f31edc2aa398154d53dbda0d50cb39a4319093e3b357bc27d'
   const gatewayId =
     '0x6fc18d39a9d7bf46c438bdb66ac9e90e902abffca15b846b32570538982fb3db'
 
@@ -42,10 +29,9 @@ async function sendCommand(keypair, client, args, options, packageId) {
 
   const [coin] = tx.splitCoins(tx.gas, [unitAmount])
 
-  const message = 'hello from sui'
+  const message = payload
   const raw = new TextEncoder().encode(message)
 
-  // 3) BCS-encode as vector<u8>
   const serializedPayload = bcs.vector(bcs.u8()).serialize(raw)
 
   tx.moveCall({
