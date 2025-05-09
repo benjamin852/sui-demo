@@ -4,16 +4,13 @@
 - send
 ```
 node scripts/gmp.js sendCall \
-  --env testnet \
-  --chainName sui-testnet \
   --destChain avalanche \
   --destAddress 0x93294Ed80495194d069FB10636D16638139b0EbA \
-  --singletonId 0xef21d379313f0b136a09548ced080b4b4a759eb07e3cf3962297bf818728219a \
+  --singletonId 0xc5aa10f4280effed526cb55b70cbd3f04df92fc5e5b654ae62d2bfb4446abbd1 \
   --fee 0.01 \
   --payload "hello from sui" \
-  --params 0x \
   --refundAddress 0xa46ed4032af9ae9c8412dc8294eb9b3ed43277f7222591da331707f747b38bd9 \
-  --packageId 0x1407bbf00c85862886a639463424e2fd1bf567058e0a5645aec62a94ff644f24
+  --packageId 0x5ff0dfa703de3e44357fba08b7103aeca103b5e0b033343f3d05810d3de5f302
 ```
 
 

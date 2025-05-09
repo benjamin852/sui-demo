@@ -15,7 +15,6 @@ async function sendCommand(keypair, client, args, options, packageId) {
     payload,
   ] = args
 
-  const params = options.params
   const gasServiceId =
     '0xac1a4ad12d781c2f31edc2aa398154d53dbda0d50cb39a4319093e3b357bc27d'
   const gatewayId =
@@ -48,7 +47,7 @@ async function sendCommand(keypair, client, args, options, packageId) {
       tx.pure(
         bcs
           .vector(bcs.u8())
-          .serialize(new Uint8Array(arrayify(params)))
+          .serialize(new Uint8Array(arrayify(0x0)))
           .toBytes()
       ),
     ],
@@ -62,8 +61,6 @@ async function main() {
   program
     .name('gmp')
     .description('GMP Example CLI')
-    .option('-e, --env <env>', 'Environment (e.g. testnet|mainnet)', 'testnet')
-    .option('-c, --chainName <chain>', 'Chain key in config', 'sui-testnet')
 
   program
     .command('sendCall')
@@ -73,7 +70,7 @@ async function main() {
     .requiredOption('--singletonId <singleton>', 'Singleton object ID')
     .requiredOption('--fee <amount>', 'Fee in atomic units')
     .requiredOption('--payload <hex>', 'Payload bytes (hex)')
-    .requiredOption('--params <params>', 'GMP call params (hex)')
+    // .requiredOption('--params <params>', 'GMP call params (hex)')
     .requiredOption('--refundAddress <addr>', 'Refund address')
     .requiredOption('--packageId <packageId>', 'Package ID')
     .action(async (opts) => {
