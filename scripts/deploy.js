@@ -1,12 +1,12 @@
 import 'dotenv/config';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 import { Command } from 'commander';
 import { decodeSuiPrivateKey } from '@mysten/sui/cryptography';
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
 import { Transaction } from '@mysten/sui/transactions';
 import { SuiClient } from '@mysten/sui/client';
-import { execSync } from 'child_process';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
 
 // Utility to pull object IDs by Move type
 export const getObjectIdsByObjectTypes = (txn, objectTypes) =>
@@ -27,13 +27,15 @@ async function run() {
   const keypair = Ed25519Keypair.fromSecretKey(secretKey);
 
   // Determine package path (directory containing Move.toml)
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-  const pkgPath = path.resolve(__dirname);
+  // const __dirname = dirname(fileURLToPath(import.meta.url));
+  // const pkgPath = path.resolve(__dirname);
+
 
   // Build the Move package
-  console.log('📦 Building Move package at:', pkgPath);
+  // console.log('📦 Building Move package at:', pkgPath);
   const buildOutput = execSync(
-    `sui move build --dump-bytecode-as-base64 --path ${pkgPath}`,
+    // `sui move build --dump-bytecode-as-base64 --path ${pkgPath}`,
+    `sui move build --dump-bytecode-as-base64`,
     { encoding: 'utf-8' }
   );
   const { modules, dependencies } = JSON.parse(buildOutput);

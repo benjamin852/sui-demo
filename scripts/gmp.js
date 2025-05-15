@@ -32,7 +32,6 @@ async function sendCommand(keypair, client, args, options, packageId) {
   const raw = new TextEncoder().encode(message)
 
   const serializedPayload = bcs.vector(bcs.u8()).serialize(raw)
-
   tx.moveCall({
     target: `${packageId}::gmp::send_call`,
     arguments: [
@@ -59,7 +58,7 @@ async function sendCommand(keypair, client, args, options, packageId) {
 async function main() {
   const program = new Command()
   program
-    .name('gmp')
+    .name('gmp_example')
     .description('GMP Example CLI')
 
   program
