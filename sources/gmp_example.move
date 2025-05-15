@@ -1,4 +1,4 @@
-module GmpExample::gmp;
+module gmp_example::gmp;
 
 use axelar_gateway::channel::{Self, Channel, ApprovedMessage};
 use axelar_gateway::gateway::{Self, Gateway};

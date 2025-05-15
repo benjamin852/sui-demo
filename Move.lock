@@ -2,16 +2,12 @@
 
 [move]
 version = 3
-manifest_digest = "7778A5F88A3E297B48363532102A967E815F220F1E524852D920452AAD7A61BE"
-deps_digest = "8227D341C0550A37580C10FA45FE148A465225149C69D179737E0FE454AD6AEC"
+manifest_digest = "5D5F5D4E8D32036AA20D41ABA971BBFC94796DFB24BA37F9FE561C2CCE7950FF"
+deps_digest = "397E6A9F7A624706DBDFEE056CE88391A15876868FD18A88504DA74EB458D697"
 dependencies = [
   { id = "AxelarGateway", name = "AxelarGateway" },
-  { id = "Bridge", name = "Bridge" },
   { id = "GasService", name = "GasService" },
-  { id = "MoveStdlib", name = "MoveStdlib" },
   { id = "RelayerDiscovery", name = "RelayerDiscovery" },
-  { id = "Sui", name = "Sui" },
-  { id = "SuiSystem", name = "SuiSystem" },
   { id = "Utils", name = "Utils" },
   { id = "VersionControl", name = "VersionControl" },
 ]
@@ -28,16 +24,6 @@ dependencies = [
 ]
 
 [[move.package]]
-id = "Bridge"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "fbb68879cbd1", subdir = "crates/sui-framework/packages/bridge" }
-
-dependencies = [
-  { id = "MoveStdlib", name = "MoveStdlib" },
-  { id = "Sui", name = "Sui" },
-  { id = "SuiSystem", name = "SuiSystem" },
-]
-
-[[move.package]]
 id = "GasService"
 source = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", rev = "b35227a82f7ca6f941a7e729e1a3b3d48a64b982", subdir = "move/gas_service" }
 
@@ -49,7 +35,7 @@ dependencies = [
 
 [[move.package]]
 id = "MoveStdlib"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "fbb68879cbd1", subdir = "crates/sui-framework/packages/move-stdlib" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "mainnet-v1.38.3", subdir = "crates/sui-framework/packages/move-stdlib" }
 
 [[move.package]]
 id = "RelayerDiscovery"
@@ -63,19 +49,10 @@ dependencies = [
 
 [[move.package]]
 id = "Sui"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "fbb68879cbd1", subdir = "crates/sui-framework/packages/sui-framework" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "mainnet-v1.38.3", subdir = "crates/sui-framework/packages/sui-framework" }
 
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
-]
-
-[[move.package]]
-id = "SuiSystem"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "fbb68879cbd1", subdir = "crates/sui-framework/packages/sui-system" }
-
-dependencies = [
-  { id = "MoveStdlib", name = "MoveStdlib" },
-  { id = "Sui", name = "Sui" },
 ]
 
 [[move.package]]

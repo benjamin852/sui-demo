@@ -1,5 +1,5 @@
 [package]
-name = "GmpExample"
+name = "gmp_example"
 version = "0.1.0"
 edition = "2024"
 
@@ -13,7 +13,7 @@ VersionControl = { git = "https://github.com/axelarnetwork/axelar-cgp-sui.git", 
 
 [addresses]
 # 1) Your own module alias must match your Move source exactly (case-sensitive)
-GmpExample = "0x0"
+gmp_example = "0x0"
 
 # 2) All CGP-Sui packages point at their live testnet IDs
 AxelarGateway = "0x6ddfcdd14a1019d13485a724db892fa0defe580f19c991eaabd690140abb21e4"
