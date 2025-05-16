@@ -4,15 +4,15 @@ import { Transaction } from '@mysten/sui/transactions'
 import { bcs } from '@mysten/sui/bcs'
 import { arrayify } from 'ethers/lib/utils.js'
 import { getWallet, getUnitAmount } from '../utils/index.js'
-import { broadcast } from '../utils/sui-utils.js'
 
-async function sendCommand(keypair, client, args, options, packageId) {
+async function run(keypair, client, args, packageId) {
   const [
     destinationChain,
     destinationAddress,
     singletonId,
     feeAmount,
     payload,
+    refundAddress,
   ] = args
 
   const gasServiceId =
@@ -20,18 +20,15 @@ async function sendCommand(keypair, client, args, options, packageId) {
   const gatewayId =
     '0x6fc18d39a9d7bf46c438bdb66ac9e90e902abffca15b846b32570538982fb3db'
 
-  const unitAmount = getUnitAmount(feeAmount)
-  const walletAddr = keypair.getPublicKey().toSuiAddress()
-  const refundAddr = options.refundAddress || walletAddr
-
   const tx = new Transaction()
+
+  const unitAmount = getUnitAmount(feeAmount)
 
   const [coin] = tx.splitCoins(tx.gas, [unitAmount])
 
-  const message = payload
-  const raw = new TextEncoder().encode(message)
+  const encodedPayload = new TextEncoder().encode(payload)
+  const serializedPayload = bcs.vector(bcs.u8()).serialize(encodedPayload)
 
-  const serializedPayload = bcs.vector(bcs.u8()).serialize(raw)
   tx.moveCall({
     target: `${packageId}::gmp::send_call`,
     arguments: [
@@ -40,9 +37,9 @@ async function sendCommand(keypair, client, args, options, packageId) {
       tx.object(gasServiceId),
       tx.pure(bcs.string().serialize(destinationChain).toBytes()),
       tx.pure(bcs.string().serialize(destinationAddress).toBytes()),
-      tx.pure(serializedPayload),
-      tx.pure.address(refundAddr),
-      coin,
+      tx.pure(serializedPayload), //
+      tx.pure.address(refundAddress),
+      coin, //
       tx.pure(
         bcs
           .vector(bcs.u8())
@@ -52,47 +49,51 @@ async function sendCommand(keypair, client, args, options, packageId) {
     ],
   })
 
-  await broadcast(client, keypair, tx, 'send_call', options)
+  const receipt = await client.signAndExecuteTransaction({
+    signer: keypair,
+    transaction: tx,
+    options: {
+      showEffects: true,
+      showObjectChanges: true,
+      showEvents: true,
+    },
+  })
+
+  console.log('✅ Tx', receipt.digest)
 }
 
-async function main() {
-  const program = new Command()
-  program
-    .name('gmp_example')
-    .description('GMP Example CLI')
-
-  program
-    .command('sendCall')
-    .description('Send a GMP call')
-    .requiredOption('--destChain <chain>', 'Destination chain')
-    .requiredOption('--destAddress <addr>', 'Destination address')
-    .requiredOption('--singletonId <singleton>', 'Singleton object ID')
-    .requiredOption('--fee <amount>', 'Fee in atomic units')
-    .requiredOption('--payload <hex>', 'Payload bytes (hex)')
-    .requiredOption('--refundAddress <addr>', 'Refund address')
-    .requiredOption('--packageId <packageId>', 'Package ID')
-    .action(async (opts) => {
-      const options = { ...program.opts(), ...opts }
-      const [keypair, client] = getWallet()
-      await sendCommand(
+const program = new Command()
+program
+  .command('sendCall')
+  .description('Send a GMP call')
+  .requiredOption('--destChain <chain>', 'Destination chain')
+  .requiredOption('--destAddress <addr>', 'Destination address')
+  .requiredOption('--singletonId <singleton>', 'Singleton object ID')
+  .requiredOption('--fee <amount>', 'Fee in atomic units')
+  .requiredOption('--payload <hex>', 'Payload bytes (hex)')
+  .requiredOption('--refundAddress <addr>', 'Refund address')
+  .requiredOption('--packageId <packageId>', 'Package ID')
+  .action(async (options) => {
+    const args = { ...program.opts(), ...options }
+    const [keypair, client] = getWallet()
+    try {
+      await run(
         keypair,
         client,
         [
-          options.destChain,
-          options.destAddress,
-          options.singletonId,
-          options.fee,
-          options.payload,
+          args.destChain,
+          args.destAddress,
+          args.singletonId,
+          args.fee,
+          args.payload,
+          args.refundAddress,
         ],
-        options,
-        options.packageId
+        args.packageId
       )
-    })
+    } catch (error) {
+      console.error('❌ Error:', error.message)
+      process.exit(1)
+    }
+  })
 
-  await program.parseAsync(process.argv)
-}
-
-main().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
+program.parseAsync(process.argv)
